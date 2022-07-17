@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import { Typography} from '@mui/material';
 import Category from './Category';
+import {getAvailability} from "./getTime"
 
 // const useStyles = makeStyles({
 //   root: {
@@ -14,42 +15,11 @@ const Dishes = ({formattedData}) => {
  const [dish, setDish]=useState([])
  const [showAllDishes, setShowAllDishes] = useState(true)
 
- const[remark,setRemark]=useState(false)
 
 useEffect(()=>{
   setDish(formattedData?.inputDish)
 },[formattedData])
 
-
-
-const getAvailability = (type) => {
-  var today = new Date()
-  var time = today.getHours();
-  if(type === "Breakfast") {
-    if(time >= 6 && time < 10)
-      return ""
-    else
-      return ("Not Available\n(Next Availavility Tomorrow 6AM to 10AM)")
-  }
-  if(type === "Lunch") {
-    if(time >= 10 && time < 16)
-    return ""
-  else
-    return ("Not Available\n(Next Availavility Tomorrow 10AM to 2PM)")
-}  
-  if(type === "Dinner") {
-    if(time >= 18)
-    return ""
-  else
-    return ("Not Available\n(Next Availavility Tomorrow 6PM to 12PM)")
-    }
-  if(type === "Lunch/Dinner") {
-    if(time >= 10)
-    return ""
-  else
-    return ("Not Available\n(Next Availavility Tomorrow 10AM to 12PM)")
-    }  
-}
 
 const mystyle = {
  display:"flex",
@@ -63,11 +33,11 @@ const myst = {
   flexDirection:"column",
   border:"1px solid grey",
   margin:"15px 5px",
-  borderRadius:"5px"
+  borderRadius:"5px",
+  background:"#E8E8E8"
  };
  const myst1 = {
   display:"flex",
-  // flexDirection:"column",
   flexWrap: "wrap"
  
  };
@@ -86,8 +56,8 @@ const myst = {
             showAllDishes &&
             dish?.map((e)=>(
             (
-            <div  width='350px' style={myst}>
-            <Typography style={typo}>{e?.name}</Typography>
+            <div  width='300px' style={myst}>
+            <Typography style={typo} variant="h6">{e?.name}</Typography>
             <Typography style={typo}>Price-{e?.price}</Typography>
             {<Typography style={typo}>Preparation Time - {e?.PrepTime}</Typography>}
            { e?.availability!== null  && <Typography style={e?.availability!== null?typo:null}>{e?.availability}</Typography>}

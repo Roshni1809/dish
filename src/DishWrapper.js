@@ -7,9 +7,7 @@ import DISH from "./getQuery"
 
 const DishWrapper = () => {
     const [formatData, setformatData] = React.useState([]);
-
     const { loading, error, data } = useQuery(DISH);
-
     const input = data
 
     useEffect(() => {

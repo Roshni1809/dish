@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import GET_CATEGORY from './getCategory';
 import { useLazyQuery } from "@apollo/react-hooks";
 import { Typography } from '@mui/material';
+import { getAvailability } from "./getTime"
 
 
 const Category = ({ formattedData, setShowAllDishes }) => {
@@ -27,7 +28,7 @@ const Category = ({ formattedData, setShowAllDishes }) => {
         setDish(data?.dish)
         setShowAllDishes((active === 0) ? true : false)
 
-    }, [formattedData,  data, active, dish])
+    }, [formattedData, data, active])
 
     const mystyle = {
         display: "flex",
@@ -39,38 +40,48 @@ const Category = ({ formattedData, setShowAllDishes }) => {
         flexDirection: "column",
         border: "1px solid grey",
         margin: "15px 5px",
-        borderRadius: "5px"
+        borderRadius: "5px",
+        background: "#E8E8E8"
     };
     const myst1 = {
         display: "flex",
-       
     };
+
     const typo = {
         padding: "5px"
     };
 
 
     return (
-        <div style={mystyle}>
-            {category?.map((e, i) => (
-                <div>
-                    <Button variant="outlined" onClick={() => { handleClick(e.id, i + 1) }}>{e?.type}</Button>
-                    <div style={myst1}>{active === i + 1 &&( dish?.length === 0 ?<h1>No Dishes Available</h1> : dish?.map(e => (
-                        <div width='500px' style={myst}>
-                            <Typography style={typo}>{e?.name}</Typography>
-                            <Typography style={typo}>Price-{e?.Price}</Typography>
-                            {<Typography style={typo}>Preparation Time{e?.PrepTime}</Typography>}
-                            {e?.availibility !== null && <Typography style={e?.availibility !== null ? typo : null}>{e?.availibility}</Typography>}
-                            {e?.remarks == null && <Typography style={typo}>{e?.remarks}
-                            </Typography>}
+        <div>
+            <div style={mystyle}>
+                {category?.map((e, i) => (
+                    <div>
+                        <div>
+                            <Button variant="outlined" onClick={() => { handleClick(e.id, i + 1) }}>{e?.type}</Button>
+
                         </div>
-                    )))}
+
                     </div>
+                ))}
+
+                <div>
+                    {active !== 0 ? <Button variant="outlined" onClick={() => setActive(0)}>Show All Dishes</Button> : <></>}
                 </div>
-            ))}
-            <div>
-            {active !== 0 ? <Button variant="outlined" onClick={() => setActive(0)}>Show All Dishes</Button> : <></>}
             </div>
+            <div style={myst1}>{active !== 0 && (dish?.length === 0 ? <h1>No Dishes Available</h1> : dish?.map(e => (
+                <div width='300px' style={myst}>
+                    <Typography style={typo} variant="h6" >{e?.name}</Typography>
+                    <Typography style={typo}>Price-{e?.Price}</Typography>
+                    {<Typography style={typo}>Preparation Time{e?.PrepTime}</Typography>}
+                    {e?.availibility !== null && <Typography style={typo} >{e?.availibility}</Typography>}
+                    <Typography style={typo}><pre>{getAvailability(e.dishType)}</pre></Typography>
+                    {e?.remarks == null && <Typography style={typo}>{e?.remarks}
+                    </Typography>}
+                </div>
+            )))}
+            </div>
+
         </div>
     )
 }
