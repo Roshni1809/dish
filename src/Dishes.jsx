@@ -58,7 +58,7 @@ const myst = {
             (
             <div  width='300px' style={myst}>
             <Typography style={typo} variant="h6">{e?.name}</Typography>
-            <Typography style={typo}>Price-{e?.price}</Typography>
+            <Typography style={typo}>Price- ₹{e?.price} + ₹30 delivery Charges</Typography>
             {<Typography style={typo}>Preparation Time - {e?.PrepTime}</Typography>}
            { e?.availability!== null  && <Typography style={e?.availability!== null?typo:null}>{e?.availability}</Typography>}
            <Typography style={typo}><pre>{getAvailability(e.dishType)}</pre></Typography>          

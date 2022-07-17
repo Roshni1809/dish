@@ -72,8 +72,8 @@ const Category = ({ formattedData, setShowAllDishes }) => {
             <div style={myst1}>{active !== 0 && (dish?.length === 0 ? <h1>No Dishes Available</h1> : dish?.map(e => (
                 <div width='300px' style={myst}>
                     <Typography style={typo} variant="h6" >{e?.name}</Typography>
-                    <Typography style={typo}>Price-{e?.Price}</Typography>
-                    {<Typography style={typo}>Preparation Time{e?.PrepTime}</Typography>}
+                    <Typography style={typo}>Price- ₹{e?.Price} + ₹30 delivery Charges</Typography>
+                    {<Typography style={typo}>Preparation Time- {e?.PrepTime}</Typography>}
                     {e?.availibility !== null && <Typography style={typo} >{e?.availibility}</Typography>}
                     <Typography style={typo}><pre>{getAvailability(e.dishType)}</pre></Typography>
                     {e?.remarks == null && <Typography style={typo}>{e?.remarks}
